@@ -3,9 +3,9 @@ image:
   tag: "{{ requiredEnv "DOCKER_TAG" }}" 
   pullPolicy: Always
 
-extraEnv:
-  - name: connectionString
-    value:  {{ requiredEnv "connectionString" }}
+{{/* extraEnv:
+  - name: nameForEnv
+    value:  {{ requiredEnv "nameInTC" }} */}}
 
 ingress:
       enabled: true
