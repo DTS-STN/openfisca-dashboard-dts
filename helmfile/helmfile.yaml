@@ -1,0 +1,41 @@
+repositories:
+    - name: dts
+      url: https://helm.dts-stn.com
+    # helm-git powered repository: You can treat any Git repository as a charts repository
+    - name: of-dashboard
+      url: git+https://{{ requiredEnv "GITHUB_USER" }}:{{ requiredEnv "GITHUB_TOKEN" }}@github.com/DTS-STN/openfisca-dashboard-dts@helm/charts?ref=main
+{{- if or (eq .Environment.Name "prod-blue") (eq .Environment.Name "prod-green") }}    
+context: EsDCDTSRG-K8S
+{{ else }}
+context: EsDCDTSDevRG-K8S
+{{ end }}
+   
+environments:
+    benrd: 
+    kylerd:
+    adamrd:
+    marcusrd:
+    ericrd:
+    pondrd:
+    #USING INT, MAIN AND SPRINT TO REFLECT OUR INTEGRATION (PR VERSION), MAIN (REFLECTING MAIN BRANCH), SPRINT (STATIC RELEASE VERSION FOR SPRINT REVIEW)
+    int:
+    main:
+    sprint:
+    prod-blue:
+    prod-green: 
+
+releases:
+# Policy Diff Engine
+  - name: of-dashboard-{{ .Environment.Name }}
+    chart: ../helm/charts/of-dashboard
+    version: 0.0.3
+    values:
+      - overrides/of-dashboard.yaml.gotmpl
+    labels:
+        category: dts
+        app: of-dashboard
+        tier: server
+    namespace: of-dashboard-{{ .Environment.Name }}
+    installed: true
+    wait: false
+    force: false
