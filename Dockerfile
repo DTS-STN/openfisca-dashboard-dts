@@ -1,4 +1,5 @@
 FROM node:12-alpine
 RUN npm install
-COPY . .
+COPY . /
+RUN ls -la /
 CMD ["node", "app.js"]
