@@ -121,13 +121,13 @@ $('#createForm').click(function(){
          "person1":{}
       }
   }
-  var query_month = "2020-09";
+  var query_day = "2020-09-23";
   var calcs = $("input[name='calculations']").val();
   var calc_array = calcs.split(',');
   var data_location = request_data_structure.persons.person1;
   for(var i = 0; i < calc_array.length; i++) {
     thisOne = calc_array[i];
-    data_location[thisOne] = {[query_month]: null};
+    data_location[thisOne] = {[query_day]: null};
   }
   console.log(JSON.stringify(request_data_structure, null, '\t'))
   trace_generate(request_data_structure);

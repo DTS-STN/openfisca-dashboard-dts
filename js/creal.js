@@ -1,10 +1,10 @@
 
-openfisca_this_month = function() {
+openfisca_this_day = function() {
   function pad (str, max) {
     str = str.toString();
     return str.length < max ? pad("0" + str, max) : str;
   }
-  return  openfisca_this_year() + '-' + pad(new Date().getMonth() +1, 2);
+  return  openfisca_this_year() + '-' + pad(new Date().getDay() +1, 2);
 }
 
 openfisca_this_year = function() {
@@ -41,7 +41,7 @@ var request_data_structure = {
         }
     }
 }
-var query_month = "2020-08";
+var query_day = "2020-08";
 
 
 if( $('#inputform').length ){
@@ -95,11 +95,11 @@ if( $('#inputform').length ){
     $.each(all_form_data, function(i, item) {
       //add the calculations we want responses for to the person object
       if ($(".chk_" + i).is(':checked')){
-        data_location[i] = {[query_month]: null};
+        data_location[i] = {[query_day]: null};
         thisparent = i;
         item.forEach(function(entry) {
             val = $( "input[name='" + entry + "']").val();
-            data_location[entry] = {[query_month]: val};
+            data_location[entry] = {[query_day]: val};
         });
       }
     });
